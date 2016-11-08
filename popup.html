@@ -6,15 +6,22 @@
     <link rel="stylesheet" href="popup.css" media="screen" title="no title">
   </head>
   <body>
-      <input id="input" type="text" name="keyword" value="" autofocus="true">
-      <input id="add" type="button" name="submit" value="添加">
 
-    <ul id="list">
-    </ul>
+    <div>
+      <h4>关键词:</h4>
+      <input class="key" id="input" type="text" name="keyword" value="" autofocus="true">
+      <input class="submit" id="add" type="button" name="submit" value="添加">
+      <div class="center" id="keyword-msg" display="none">
+        这里是消息
+      </div>
+    </div>
 
-    <div class="more">
-      <div class="center">
-        查看所有关键词
+    <div>
+      <h4>正则表达式:</h4>
+      <input class="key" id="pattern-input" type="text" name="keyword" value="" autofocus="true">
+      <input class="submit" id="pattern-add" type="button" name="submit" value="添加">
+      <div class="center" id="pattern-msg">
+        这里是消息
       </div>
     </div>
 

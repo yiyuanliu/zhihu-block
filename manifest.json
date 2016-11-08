@@ -7,8 +7,12 @@
     "storage"
   ],
   "browser_action": {
-    "default_title": "不知道这个怎么弄",
-    "default_popup": "popup.html"
+    "default_title": "添加屏蔽关键词",
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons":{
+    "48":"icon.png"
   },
   "content_scripts": [
     {

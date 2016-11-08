@@ -38,6 +38,10 @@ body {
   border-bottom: 1px #e0e0e0 solid;
 }
 
+.section:last-child {
+  border-bottom: 2px #fff solid;
+}
+
 .section-title {
   width: 140px;
   font-size: 18px;
@@ -46,19 +50,39 @@ body {
   display: inline-block;;
 }
 
-.clear {
-  clear: both;
-}
-
-ul{
+.section-right {
   width: 370px;
   margin: 0px;
   padding: 0px;
   float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+#footer {
+  text-align: center;
+  margin: auto;
+}
+
+.author {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+}
+
+ul{
+  margin: 0px;
+  padding: 0px;
   list-style: none;
 }
 
 #keyword-list {
+  min-height: 100px;
+}
+
+#pattern-list {
   min-height: 100px;
 }
 
@@ -70,6 +94,16 @@ li {
 li.hor {
   float: left;
   padding-right: 20px;
+}
+
+a{
+  text-decoration: none;
+  color: #777;
+  font-size: 16px;
+}
+
+a:hover {
+  color: #2196F3;
 }
 
 a.close {

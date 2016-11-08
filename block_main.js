@@ -1,14 +1,19 @@
 stringArray = new Array()
+patternArray = new Array()
 height = document.body.scrollHeight
 enable = true
 
-chrome.storage.sync.get(new Array('keywords', 'enable_main'), function (o) {
+chrome.storage.sync.get(new Array('keywords', 'enable_main', 'patterns'), function (o) {
   if (o['keywords']) {
     stringArray = o['keywords']
   }
 
   if (o['enable_main'] != undefined) {
-    enable = o[enable_main]
+    enable = o['enable_main']
+  }
+
+  if (o['patterns']) {
+    patternArray = o['patterns']
   }
 
   if (enable) {
@@ -22,10 +27,16 @@ chrome.storage.sync.get(new Array('keywords', 'enable_main'), function (o) {
 })
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  var newArray = changes['keywords'].newValue;
-  if (newArray && enable) {
-    stringArray = newArray
-    blockTopics()
+  if (enable) {
+    if (changes['keywords'] && changes['keywords'].newValue) {
+      stringArray = changes['keywords'].newValue
+      blockTopics()
+    }
+
+    if (changes['patterns'] && changes['patterns'].newValue) {
+      patternArray = changes['patterns'].newValue
+      blockTopics()
+    }
   }
 })
 
@@ -41,18 +52,31 @@ function blockTopics() {
 }
 
 function isMatch(feedItem) {
-  var content = feedItem.getElementsByClassName('feed-title')[0].innerText
-  if (!content) {
+  if (feedItem.getElementsByClassName('feed-title')[0]) {
+    var content = feedItem.getElementsByClassName('feed-title')[0].innerText.toLowerCase()
+    if (!content) {
+      return false
+    }
+
+    for (var i = 0; i < stringArray.length; i++) {
+      var match = stringArray[i]
+      if (content.indexOf(match.toLowerCase()) != -1) {
+        return true;
+      }
+    }
+
+    for (var i = 0; i < patternArray.length; i++) {
+      try {
+        if (content.match(patternArray[i])) {
+          console.log('match ' + patternArray[i]);
+          return true
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
     return false
   }
-
-  for (var i = 0; i < stringArray.length; i++) {
-    var match = stringArray[i]
-    if (content.indexOf(match) != -1) {
-      return true;
-    }
-  }
-  return false
 }
 
 function blockItem(feedItem) {

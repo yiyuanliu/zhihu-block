@@ -1,6 +1,6 @@
 body {
   width: 250px;
-  padding-top: 8px;
+  padding-top: 0px;
 }
 
 #input {
@@ -9,6 +9,21 @@ body {
 }
 
 #add {
+  float: right;
+  background-color: #2196F3;
+  color: #ffffff;
+  border: 0px;
+  border-radius: 2px;
+  border-color: grey;
+  font-size: 13px;
+}
+
+input.key {
+  width: 200px;
+  font-size: 13px;
+}
+
+input.submit {
   float: right;
   background-color: #2196F3;
   color: #ffffff;
@@ -56,4 +71,10 @@ li:hover a.close {
   align-content: center;
   text-align: center;
   padding: 4px;
+}
+
+h4 {
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 6px;
 }

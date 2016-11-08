@@ -1,18 +1,26 @@
 var strArray = new Array()
+var patternArray = new Array()
 
-chrome.storage.sync.get(new Array('enable_main', 'keywords',  'enable_topic', 'enable_explore' ), function (o) {
+chrome.storage.sync.get(new Array('enable_main', 'keywords', 'patterns',  'enable_topic', 'enable_explore' ), function (o) {
   if (o['keywords']) {
     strArray = o['keywords']
+  }
+
+  if (o['patterns']) {
+    patternArray = o['patterns']
   }
 
   for (var i = 0; i < strArray.length; i++) {
     addItem(strArray[i])
   }
 
+  for (var i = 0; i < patternArray.length; i++) {
+    addPatternItem(patternArray[i])
+  }
+
   var ids = new Array('enable_main', 'enable_topic', 'enable_explore')
   for (var i = 0; i < ids.length; i++) {
     var id = ids[i]
-    console.log(id + ' ' + o[id]);
     if (o[id] != undefined) {
       document.getElementById(ids[i]).checked = true
     }
@@ -49,6 +57,33 @@ function removeKeyWord(str) {
 
 function removeItem(str) {
   document.getElementById('keyword-list').removeChild(document.getElementById('id:' + str))
+}
+
+function addPatternItem(str) {
+  var li = document.createElement('li')
+  var text = document.createTextNode(str)
+
+  var close = document.createElement('a')
+  close.setAttribute('href', '#')
+  close.setAttribute('class', 'close')
+  close.addEventListener('click', function(){ removePattern(str) })
+  close.appendChild(document.createTextNode('删除'))
+
+  li.appendChild(text)
+  li.appendChild(close)
+  li.setAttribute('id','id-pattern:' + str)
+  document.getElementById('pattern-list').appendChild(li)
+}
+
+function removePattern(str) {
+  if (patternArray.indexOf(str) != -1) {
+    patternArray.splice(patternArray.indexOf(str), 1)
+    chrome.storage.sync.set({'patterns': patternArray}, function () { removePatternItem(str) })
+  }
+}
+
+function removePatternItem(str) {
+  document.getElementById('pattern-list').removeChild(document.getElementById('id-pattern:' + str))
 }
 
 function onStateChanged(id) {
